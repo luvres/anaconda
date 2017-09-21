@@ -14,5 +14,5 @@ docker run --rm --name Anaconda -h anaconda \
 
 ### Build
 ```
-docker build -t izone/jupyter .
+docker build -t izone/anaconda .
 ```
