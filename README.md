@@ -16,3 +16,7 @@ docker run --rm --name Anaconda -h anaconda \
 ```
 docker build -t izone/anaconda .
 ```
+### Access Browser
+```
+http://localhost:8888/?token=< ... >
+```
