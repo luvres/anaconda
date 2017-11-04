@@ -20,7 +20,7 @@ RUN \
     && rm Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
   \
 	&& pip install --upgrade pip \
-    && pip install mrjob \
+    && pip install mrjob shapely \
   \
 	&& mkdir $NOTEBOOKS_PATH
 
