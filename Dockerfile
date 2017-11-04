@@ -11,7 +11,7 @@ RUN \
 		bzip2 \
   \
   # Anaconda3
-	&& ANACONDA_VERSION=4.4.0 \
+	&& ANACONDA_VERSION=5.0.1 \
 	&& curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
 												-o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
   \

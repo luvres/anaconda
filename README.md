@@ -1,4 +1,4 @@
-## Anaconda3 4.4.0
+## Anaconda3 5.0.1
 -----
 ### Pull image
 ```
@@ -9,7 +9,11 @@ docker pull izone/anaconda
 docker run --rm --name Anaconda -h anaconda \
 -p 8888:8888 \
 -v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda jupyter notebook --allow-root --ip='*' --no-browser --notebook-dir=$NOTEBOOKS_PATH
+-ti izone/anaconda jupyter notebook \
+	--allow-root --ip='*' \
+	--no-browser \
+	--notebook-dir=$NOTEBOOKS_PATH \
+	--NotebookApp.token=''
 ```
 
 ### Build
@@ -18,5 +22,5 @@ docker build -t izone/anaconda .
 ```
 ### Access Browser
 ```
-http://localhost:8888/?token=< ... >
+http://localhost:8888/
 ```
