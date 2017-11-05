@@ -1,0 +1,38 @@
+docker run -ti --rm --name Conda \
+-p 8889:8888 \
+-v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static \
+arm32v7/debian:jessie-slim bash
+
+
+apt-get update && apt-get install -y python3-pip \
+&& pip3 install --upgrade pip \
+&& pip install jupyter
+
+
+jupyter notebook --no-browser \
+--allow-root --ip='*' \
+--NotebookApp.token=''
+
+
+python3-matplotlib 
+python3-scipy
+python-seaborn 
+python-pandas
+
+ttf-bitstream-vera
+
+ipython3 kernelspec install-self
+
+
+
+
+
+docker run --rm --name Anaconda -h anaconda \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda jupyter notebook \
+    --allow-root --ip='*' \
+    --no-browser \
+    --notebook-dir=$NOTEBOOKS_PATH \
+    --NotebookApp.token=''
+
