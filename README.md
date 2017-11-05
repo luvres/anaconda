@@ -25,7 +25,26 @@ docker build -t izone/anaconda .
 ```
 http://localhost:8888/
 ```
-
+```
+```
+-----
+### Raspberry Pi 3
+#### armhf
+##### Pull image
+```
+docker pull izone/freecad:armhf
+```
+##### Run in Raspberry Pi
+```
+docker run --rm --name Anaconda -h anaconda \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda:armhf jupyter notebook \
+	--allow-root --ip='*' \
+	--no-browser \
+	--notebook-dir=$NOTEBOOKS_PATH \
+	--NotebookApp.token=''
+```
 ```
 ```
 ### Docker QEMU
