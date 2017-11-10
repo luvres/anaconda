@@ -9,6 +9,7 @@ RUN \
     && apt-get install -y \
 		curl \
 		bzip2 \
+		build-essential \
   \
   # Anaconda3
 	&& ANACONDA_VERSION=5.0.1 \
@@ -20,7 +21,13 @@ RUN \
     && rm Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
   \
 	&& pip install --upgrade pip \
-    && pip install mrjob shapely \
+    && pip install \
+		mrjob \
+		shapely \
+		selenium \
+		termcolor \
+		scrapy \
+		js2xml \
   \
 	&& mkdir $NOTEBOOKS_PATH
 
