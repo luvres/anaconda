@@ -1,4 +1,4 @@
-## Anaconda3 5.0.1
+## Anaconda2 5.0.1
 -----
 
 ### Pull image
@@ -16,14 +16,17 @@ docker run --rm --name Anaconda -h anaconda \
 	--notebook-dir=$NOTEBOOKS_PATH \
 	--NotebookApp.token=''
 ```
-
+### Access Browser
+```
+http://localhost:8888/
+```
 ### Build
 ```
 docker build -t izone/anaconda .
 ```
-### Access Browser
+### Build Anaconda3
 ```
-http://localhost:8888/
+docker build -t izone/anaconda:python3 ./anaconda3/
 ```
 ```
 ```
