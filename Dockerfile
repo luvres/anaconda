@@ -7,7 +7,7 @@ ENV PATH=/opt/anaconda3/bin:$PATH \
 RUN \
 	apt-get update \
     && apt-get install -y \
-		curl \
+		curl git zsh \
 		bzip2 \
 		build-essential \
   \
