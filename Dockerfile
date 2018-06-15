@@ -1,4 +1,4 @@
-FROM debian:jessie-slim
+FROM debian:stretch-slim
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV PATH=/opt/anaconda3/bin:$PATH \
@@ -12,7 +12,7 @@ RUN \
 		build-essential \
   \
   # Anaconda3
-	&& ANACONDA_VERSION=5.0.1 \
+	&& ANACONDA_VERSION=5.2.0 \
 	&& curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
 												-o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
   \

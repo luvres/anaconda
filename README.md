@@ -1,4 +1,4 @@
-## Anaconda3 5.0.1
+## Anaconda3 5.2.0
 -----
 
 ### Pull image
