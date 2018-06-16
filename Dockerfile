@@ -28,6 +28,7 @@ RUN \
 		termcolor \
 		scrapy \
 		js2xml \
+		celery \
 	  \
 		msgpack \
 		git+https://github.com/pydata/pandas-datareader.git \
