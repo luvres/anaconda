@@ -1,5 +1,14 @@
-FROM debian:stretch-slim
+FROM arm32v7/debian:stretch-slim
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
+
+# sudo apt-get install qemu-user-static binfmt-support
+# sudo update-binfmts --enable qemu-arm
+# sudo update-binfmts --display qemu-arm 
+# cp /usr/bin/qemu-arm-static .
+COPY qemu-arm-static /usr/bin/qemu-arm-static
+
+## References:
+# https://matchboxdorry.gitbooks.io/matchboxblog/content/blogs/build_and_run_arm_images.html
 
 ENV PATH=/opt/anaconda3/bin:$PATH \
 	NOTEBOOKS_PATH=/root/notebooks
@@ -28,9 +37,6 @@ RUN \
 		termcolor \
 		scrapy \
 		js2xml \
-	  \
-		msgpack \
-		git+https://github.com/pydata/pandas-datareader.git \
   \
 	&& mkdir $NOTEBOOKS_PATH
 
