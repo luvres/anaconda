@@ -1,6 +1,7 @@
 FROM debian:buster-slim
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
+
 ENV PATH=/opt/anaconda3/bin:$PATH \
 	NOTEBOOKS_PATH=/root/notebooks
 
