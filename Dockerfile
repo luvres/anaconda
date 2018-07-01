@@ -32,6 +32,7 @@ RUN \
 	  \
 		msgpack \
 		git+https://github.com/pydata/pandas-datareader.git \
+		ggplot \
   \
 	&& mkdir $NOTEBOOKS_PATH
 
