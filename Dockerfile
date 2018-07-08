@@ -6,10 +6,16 @@ ENV PATH=/opt/anaconda3/bin:$PATH \
 
 RUN \
 	apt-get update \
-    && apt-get install -y \
+	&& apt-get install -y \
+	  \
 		curl git zsh \
 		bzip2 \
 		build-essential \
+	  \
+		&& apt-get install --no-install-recommends -y \
+		texlive \
+		texlive-xetex \
+		texlive-generic-recommended \
   \
   # Anaconda3
 	&& ANACONDA_VERSION=5.2.0 \
