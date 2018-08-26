@@ -46,4 +46,3 @@ WORKDIR $NOTEBOOKS_PATH
 
 # Jupyter Notebook port
 EXPOSE 8888
-
