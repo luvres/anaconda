@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:buster-slim
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV PATH=/opt/anaconda3/bin:$PATH \
@@ -6,10 +6,16 @@ ENV PATH=/opt/anaconda3/bin:$PATH \
 
 RUN \
 	apt-get update \
-    && apt-get install -y \
+	&& apt-get install -y \
+	  \
 		curl git zsh \
 		bzip2 \
 		build-essential \
+	  \
+		&& apt-get install --no-install-recommends -y \
+		texlive \
+		texlive-xetex \
+		texlive-generic-recommended \
   \
   # Anaconda3
 	&& ANACONDA_VERSION=5.2.0 \
@@ -32,6 +38,9 @@ RUN \
 	  \
 		msgpack \
 		git+https://github.com/pydata/pandas-datareader.git \
+		ggplot \
+      \
+		tensorflow \
   \
 	&& mkdir $NOTEBOOKS_PATH
 
@@ -39,4 +48,3 @@ WORKDIR $NOTEBOOKS_PATH
 
 # Jupyter Notebook port
 EXPOSE 8888
-

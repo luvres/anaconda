@@ -16,6 +16,19 @@ docker run --rm --name Anaconda -h anaconda \
 	--notebook-dir=$NOTEBOOKS_PATH \
 	--NotebookApp.token=''
 ```
+#### GPU
+```
+docker run --rm --name Anaconda -h anaconda \
+--device /dev/dri \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda jupyter notebook \
+	--allow-root --ip='*' \
+	--no-browser \
+	--notebook-dir=$NOTEBOOKS_PATH \
+	--NotebookApp.token=''
+```
+
 ##### Background
 ```
 docker run -d --name Anaconda -h anaconda \

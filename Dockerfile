@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM izone/amdgpu
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV PATH=/opt/anaconda3/bin:$PATH \
