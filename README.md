@@ -1,4 +1,5 @@
 ## Anaconda3 5.2.0
+### GPU - NVIDIA and AMDGPU (RX 550)
 -----
 
 ### Pull image
@@ -18,11 +19,11 @@ docker run --rm --name Anaconda -h anaconda \
 ```
 #### GPU
 ```
-docker run --rm --name Anaconda -h anaconda \
+docker run --rm --name Anaconda-GPU -h anaconda \
 --device /dev/dri \
 -p 8888:8888 \
 -v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda jupyter notebook \
+-ti izone/anaconda:gpu jupyter notebook \
 	--allow-root --ip='*' \
 	--no-browser \
 	--notebook-dir=$NOTEBOOKS_PATH \
@@ -49,58 +50,6 @@ http://localhost:8888/
 ```
 docker build -t izone/anaconda .
 ```
-### Build Anaconda2
 ```
-docker build -t izone/anaconda:python2 ./anaconda2/
-```
-```
-```
------
-### Raspberry Pi 3
-#### armhf
-##### Pull image
-```
-docker pull izone/freecad:armhf
-```
-##### Run in Raspberry Pi
-```
-docker run --rm --name Anaconda -h anaconda \
--p 8888:8888 \
--v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda:armhf jupyter notebook \
-	--allow-root --ip='*' \
-	--no-browser \
-	--notebook-dir=$NOTEBOOKS_PATH \
-	--NotebookApp.token=''
-```
-```
-```
-### Docker QEMU
-#### armhf in amd64
-```
-sudo apt-get install qemu-user-static
-```
-#### Run
-```
-docker run --rm --name Anaconda -h anaconda \
--p 8888:8888 \
--v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static \
--v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda:armhf jupyter notebook \
-	--allow-root --ip='*' \
-	--no-browser \
-	--notebook-dir=$NOTEBOOKS_PATH \
-	--NotebookApp.token=''
-```
-#### Build
-```
-sudo apt-get install qemu-user-static binfmt-support
-sudo update-binfmts --enable qemu-arm
-sudo update-binfmts --display qemu-arm 
-cp /usr/bin/qemu-arm-static .
-```
-```
-```
-```
-docker build -t izone/anaconda:armhf ./armhf/
+docker build -t izone/anaconda:gpu ./gpu/
 ```

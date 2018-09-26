@@ -1,4 +1,4 @@
-FROM izone/amdgpu
+FROM ubuntu:xenial
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV PATH=/opt/anaconda3/bin:$PATH \
