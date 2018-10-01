@@ -6,7 +6,7 @@
 ```
 docker pull izone/anaconda
 ```
-### Run
+### Run Jupyter Notebook
 ```
 docker run --rm --name Anaconda -h anaconda \
 -p 8888:8888 \
@@ -17,19 +17,6 @@ docker run --rm --name Anaconda -h anaconda \
 	--notebook-dir=$NOTEBOOKS_PATH \
 	--NotebookApp.token=''
 ```
-#### GPU
-```
-docker run --rm --name Anaconda-GPU -h anaconda \
---device /dev/dri \
--p 8888:8888 \
--v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda:gpu jupyter notebook \
-	--allow-root --ip='*' \
-	--no-browser \
-	--notebook-dir=$NOTEBOOKS_PATH \
-	--NotebookApp.token=''
-```
-
 ##### Background
 ```
 docker run -d --name Anaconda -h anaconda \
@@ -42,6 +29,26 @@ docker run -d --name Anaconda -h anaconda \
 	--notebook-dir=$NOTEBOOKS_PATH \
 	--NotebookApp.token=''
 ```
+
+#### PySpark Notebook
+```
+docker run --rm --name Anaconda-GPU -h anaconda \
+--device /dev/dri \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda:spark pyspark
+```
+
+#### PySpark GPU Notebook
+```
+docker run --rm --name Anaconda-GPU -h anaconda \
+--device /dev/dri \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda:gpu pyspark
+```
+
+
 ### Access Browser
 ```
 http://localhost:8888/
@@ -51,5 +58,9 @@ http://localhost:8888/
 docker build -t izone/anaconda .
 ```
 ```
+docker build -t izone/anaconda:spark ./spark/
+```
+```
 docker build -t izone/anaconda:gpu ./gpu/
 ```
+
