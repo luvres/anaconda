@@ -1,5 +1,5 @@
 ## Anaconda3 5.2.0
-### PySpark - spark 2.
+### PySpark v2.3.2
 ### GPU - NVIDIA and AMDGPU (RX 550)
 -----
 
