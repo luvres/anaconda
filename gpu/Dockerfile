@@ -2,9 +2,8 @@ FROM izone/amdgpu
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV JAVA_HOME=/opt/jdk \
-    SPARK_HOME=/opt/spark \
     NOTEBOOKS_PATH=/root/notebooks
-ENV PATH=${PATH}:${JAVA_HOME}/bin:${JAVA_HOME}/sbin:/opt/anaconda3/bin:${SPARK_HOME}/bin:${SPARK_HOME}/sbin
+ENV PATH=${PATH}:/opt/anaconda3/bin:${JAVA_HOME}/bin:${JAVA_HOME}/sbin
 
 RUN \
 	apt-get update \
@@ -46,11 +45,6 @@ RUN \
   \
 	&& mkdir $NOTEBOOKS_PATH \
   \
-  # Spark
-	&& SPARK_VERSION=2.3.2 \
-	&& curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
-    && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark \
-  \
   # Java
 	&& JAVA_VERSION_MAJOR=8 && \
     JAVA_VERSION_MINOR=181 && \
@@ -91,8 +85,23 @@ RUN \
            /opt/jdk/jre/lib/ext/nashorn.jar \
            /opt/jdk/jre/lib/oblique-fonts \
            /opt/jdk/jre/lib/plugin.jar \
-           /tmp/* /var/cache/apt/*
-
+           /tmp/* /var/cache/apt/* \
+  \
+  # Spark
+	&& SPARK_VERSION=2.3.2 \
+	&& curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
+    && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark
+           
+ENV SPARK_HOME=/opt/spark
+ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+ENV PYSPARK_PYTHON=python3
+ENV PYSPARK_DRIVER_PYTHON=ipython
+ENV PYSPARK_DRIVER_PYTHON_OPTS="notebook --allow-root --ip='*' \
+										 --no-browser \
+										 --notebook-dir=$NOTEBOOKS_PATH \
+										 --NotebookApp.token=''"
+										 
+										 
 WORKDIR $NOTEBOOKS_PATH
 
 # Jupyter Notebook port
