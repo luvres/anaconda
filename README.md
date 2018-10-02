@@ -7,7 +7,8 @@
 ```
 docker pull izone/anaconda
 ```
-### Run Jupyter Notebook
+### Run
+#### Jupyter Notebook
 ```
 docker run --rm --name Anaconda -h anaconda \
 -p 8888:8888 \
@@ -49,11 +50,13 @@ docker run --rm --name Anaconda-GPU -h anaconda \
 -ti izone/anaconda:gpu pyspark
 ```
 
-
+-----
 ### Access Browser
 ```
 http://localhost:8888/
 ```
+
+-----
 ### Build
 ```
 docker build -t izone/anaconda .
