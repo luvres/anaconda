@@ -1,8 +1,9 @@
 FROM ubuntu:xenial
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
-ENV PATH=/opt/anaconda3/bin:$PATH \
-	NOTEBOOKS_PATH=/root/notebooks
+ENV \
+    NOTEBOOKS_PATH=/root/notebooks \
+    PATH=/opt/anaconda3/bin:/opt/julia/bin:$PATH
 
 RUN \
 	apt-get update \
@@ -45,8 +46,19 @@ RUN \
 	&& mkdir $NOTEBOOKS_PATH \
   \
   # R packages
-    && conda install r-base r-irkernel
+    && conda install r-base r-irkernel \
+  \
+  # Julia
+    && JULIA_V=0.7 \
+    && JULIA_VERSION=0.7.0 \
+    && JULIA_PATH=/usr/local/julia-${JULIA_VERSION} \
+    && mkdir $JULIA_PATH \
+    && curl https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_V}/julia-${JULIA_VERSION}-linux-x86_64.tar.gz | tar -xzf - -C ${JULIA_PATH} --strip-components 1 \
+    && ln -s $JULIA_PATH /opt/julia \
+    && sed -i 's/# end aliases/alias j="julia"\n# end aliases/' $HOME/.bashrc \
+    && julia -e 'Pkg.add("IJulia")'
 
+    
 WORKDIR $NOTEBOOKS_PATH
 
 # Jupyter Notebook port

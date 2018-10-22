@@ -3,7 +3,7 @@ MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV JAVA_HOME=/opt/jdk \
     NOTEBOOKS_PATH=/root/notebooks
-ENV PATH=${PATH}:${JAVA_HOME}/bin:${JAVA_HOME}/sbin:/opt/anaconda3/bin
+ENV PATH=${PATH}:${JAVA_HOME}/bin:${JAVA_HOME}/sbin:/opt/anaconda3/bin:/opt/julia/bin
 
 RUN \
 	apt-get update \
@@ -43,9 +43,20 @@ RUN \
       \
 		tensorflow \
   \
+	&& mkdir $NOTEBOOKS_PATH \
+  \
+  # R packages
     && conda install r-base r-irkernel \
   \
-	&& mkdir $NOTEBOOKS_PATH \
+  # Julia
+    && JULIA_V=0.7 \
+    && JULIA_VERSION=0.7.0 \
+    && JULIA_PATH=/usr/local/julia-${JULIA_VERSION} \
+    && mkdir $JULIA_PATH \
+    && curl https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_V}/julia-${JULIA_VERSION}-linux-x86_64.tar.gz | tar -xzf - -C ${JULIA_PATH} --strip-components 1 \
+    && ln -s $JULIA_PATH /opt/julia \
+    && sed -i 's/# end aliases/alias j="julia"\n# end aliases/' $HOME/.bashrc \
+    && julia -e 'Pkg.add("IJulia")' \
   \
   # Java
 	&& JAVA_VERSION_MAJOR=8 && \
