@@ -42,7 +42,10 @@ RUN \
       \
 		tensorflow \
   \
-	&& mkdir $NOTEBOOKS_PATH
+	&& mkdir $NOTEBOOKS_PATH \
+  \
+  # R packages
+    && conda install r-base r-irkernel
 
 WORKDIR $NOTEBOOKS_PATH
 

@@ -45,12 +45,15 @@ RUN \
   \
 	&& mkdir $NOTEBOOKS_PATH \
   \
+  # R packages
+    && conda install r-base r-irkernel
+  \
   # Java
 	&& JAVA_VERSION_MAJOR=8 && \
-    JAVA_VERSION_MINOR=181 && \
-    JAVA_VERSION_BUILD=13 && \
+    JAVA_VERSION_MINOR=191 && \
+    JAVA_VERSION_BUILD=12 && \
     JAVA_PACKAGE=jdk && \
-    URL=96a7b8442fe848ef90c96a2fad6ed6d1 && \
+    URL=2787e4a523244c269598db4e85c51e0c && \
     curl -jkSLH "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${URL}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
     | tar -xzf - -C /usr/local \
     && ln -s /usr/local/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk \
