@@ -110,15 +110,15 @@ RUN \
 	&& curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
     && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark
            
-ENV \
-    SPARK_HOME=/opt/spark \
-    PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin \
+ENV SPARK_HOME=/opt/spark \
     PYSPARK_PYTHON=python3 \
     PYSPARK_DRIVER_PYTHON=ipython \
     PYSPARK_DRIVER_PYTHON_OPTS="notebook --allow-root --ip='*' \
 										 --no-browser \
 										 --notebook-dir=$NOTEBOOKS_PATH \
 										 --NotebookApp.token=''"
+
+ENV PATH=${PATH}:${SPARK_HOME}/bin:${SPARK_HOME}/sbin
 
 WORKDIR $NOTEBOOKS_PATH
 
