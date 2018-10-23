@@ -1,5 +1,5 @@
 ## Anaconda3 5.2.0
-### R-Notebook
+### R, Julia, C++
 ### PySpark v2.3.2
 ### GPU - NVIDIA and AMDGPU (RX 550)
 -----

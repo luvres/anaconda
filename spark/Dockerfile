@@ -2,21 +2,21 @@ FROM ubuntu:xenial
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
 ENV JAVA_HOME=/opt/jdk \
+    JU_HOME=/opt/julia \
     NOTEBOOKS_PATH=/root/notebooks
-ENV PATH=${PATH}:${JAVA_HOME}/bin:${JAVA_HOME}/sbin:/opt/anaconda3/bin:/opt/julia/bin
+ENV PATH=${PATH}:/opt/anaconda3/bin:${JAVA_HOME}/bin:${JAVA_HOME}/sbin:${JU_HOME}/bin
 
 RUN \
 	apt-get update \
 	&& apt-get install -y \
-	  \
 		curl git zsh \
 		bzip2 \
 		build-essential \
-	  \
-		&& apt-get install --no-install-recommends -y \
-		texlive \
-		texlive-xetex \
-		texlive-generic-recommended \
+  \
+    && apt-get install --no-install-recommends -y \
+        texlive \
+        texlive-xetex \
+        texlive-generic-recommended \
   \
   # Anaconda3
 	&& ANACONDA_VERSION=5.2.0 \
@@ -46,7 +46,12 @@ RUN \
 	&& mkdir $NOTEBOOKS_PATH \
   \
   # R packages
-    && conda install r-base r-irkernel \
+    && conda install \
+        r-base r-irkernel \
+        r-caret \
+  \
+  # C++
+    && conda install -c QuantStack -c conda-forge xeus-cling \
   \
   # Julia
     && JULIA_V=0.7 \
@@ -105,16 +110,16 @@ RUN \
 	&& curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
     && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark
            
-ENV SPARK_HOME=/opt/spark
-ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-ENV PYSPARK_PYTHON=python3
-ENV PYSPARK_DRIVER_PYTHON=ipython
-ENV PYSPARK_DRIVER_PYTHON_OPTS="notebook --allow-root --ip='*' \
+ENV \
+    SPARK_HOME=/opt/spark \
+    PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin \
+    PYSPARK_PYTHON=python3 \
+    PYSPARK_DRIVER_PYTHON=ipython \
+    PYSPARK_DRIVER_PYTHON_OPTS="notebook --allow-root --ip='*' \
 										 --no-browser \
 										 --notebook-dir=$NOTEBOOKS_PATH \
 										 --NotebookApp.token=''"
-										 
-										 
+
 WORKDIR $NOTEBOOKS_PATH
 
 # Jupyter Notebook port

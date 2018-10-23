@@ -1,22 +1,21 @@
 FROM ubuntu:xenial
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
-ENV \
-    NOTEBOOKS_PATH=/root/notebooks \
-    PATH=/opt/anaconda3/bin:/opt/julia/bin:$PATH
+ENV JU_HOME=/opt/julia \
+    NOTEBOOKS_PATH=/root/notebooks
+ENV PATH=${PATH}:/opt/anaconda3/bin:${JU_HOME}/bin
 
 RUN \
 	apt-get update \
 	&& apt-get install -y \
-	  \
 		curl git zsh \
 		bzip2 \
 		build-essential \
-	  \
-		&& apt-get install --no-install-recommends -y \
-		texlive \
-		texlive-xetex \
-		texlive-generic-recommended \
+  \
+    && apt-get install --no-install-recommends -y \
+        texlive \
+        texlive-xetex \
+        texlive-generic-recommended \
   \
   # Anaconda3
 	&& ANACONDA_VERSION=5.2.0 \
@@ -46,7 +45,12 @@ RUN \
 	&& mkdir $NOTEBOOKS_PATH \
   \
   # R packages
-    && conda install r-base r-irkernel \
+    && conda install \
+        r-base r-irkernel \
+        r-caret \
+  \
+  # C++
+    && conda install -c QuantStack -c conda-forge xeus-cling \
   \
   # Julia
     && JULIA_V=0.7 \
