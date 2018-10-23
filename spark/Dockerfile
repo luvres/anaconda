@@ -36,6 +36,9 @@ RUN \
 		scrapy \
 		js2xml \
 		celery \
+		requests_oauthlib \
+        twython \
+        nltk \
 	  \
 		msgpack \
 		git+https://github.com/pydata/pandas-datareader.git \
