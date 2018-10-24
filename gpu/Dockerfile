@@ -37,8 +37,8 @@ RUN \
 		js2xml \
 		celery \
 		requests_oauthlib \
-        twython \
-        nltk \
+		twython \
+		nltk \
 	  \
 		msgpack \
 		git+https://github.com/pydata/pandas-datareader.git \
@@ -111,7 +111,19 @@ RUN \
   # Spark
 	&& SPARK_VERSION=2.3.2 \
 	&& curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
-    && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark
+    && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark \
+  \
+  # jdbc
+    && curl -L https://github.com/luvres/jdbc/raw/master/mysql-connector-java-8.0.13-bin.jar \
+                                                -o /opt/spark/jars/mysql-connector-java-8.0.13-bin.jar \
+    && curl -L https://github.com/luvres/jdbc/raw/master/mariadb-java-client-2.3.0.jar \
+                                                -o /opt/spark/jars/mariadb-java-client-2.3.0.jar \
+    && curl -L https://github.com/luvres/jdbc/raw/master/ojdbc7.jar \
+                                                -o /opt/spark/jars/ojdbc7.jar \
+    && curl -L https://github.com/luvres/jdbc/raw/master/ojdbc6.jar \
+                                                -o /opt/spark/jars/ojdbc6.jar \
+    && curl -L https://github.com/luvres/jdbc/raw/master/postgresql-42.2.5.jar \
+                                                -o /opt/spark/jars/postgresql-42.2.5.jar
            
 ENV SPARK_HOME=/opt/spark \
     PYSPARK_PYTHON=python3 \
