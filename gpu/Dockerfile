@@ -42,7 +42,7 @@ RUN \
       \
         msgpack \
         git+https://github.com/pydata/pandas-datareader.git \
-        ggplot plotly \
+        ggplot pygal plotly \
       \
         tensorflow \
   \
