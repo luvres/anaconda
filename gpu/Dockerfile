@@ -7,11 +7,11 @@ ENV JAVA_HOME=/opt/jdk \
 ENV PATH=${PATH}:/opt/anaconda3/bin:${JAVA_HOME}/bin:${JAVA_HOME}/sbin:${JU_HOME}/bin
 
 RUN \
-	apt-get update \
-	&& apt-get install -y \
-		curl git zsh \
-		bzip2 \
-		build-essential \
+    apt-get update \
+    && apt-get install -y \
+        curl git zsh \
+        bzip2 \
+        build-essential \
   \
     && apt-get install --no-install-recommends -y \
         texlive \
@@ -19,34 +19,34 @@ RUN \
         texlive-generic-recommended \
   \
   # Anaconda3
-	&& ANACONDA_VERSION=5.2.0 \
-	&& curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
-												-o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
+    && ANACONDA_VERSION=5.2.0 \
+    && curl -L https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
+                                                -o Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
   \
     && /bin/bash Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh -b -p /usr/local/anaconda3 \
     && ln -s /usr/local/anaconda3/ /opt/anaconda3 \
     && rm Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
   \
-	&& pip install --upgrade pip \
+    && pip install --upgrade pip \
     && pip install \
-		mrjob \
-		shapely \
-		selenium \
-		termcolor \
-		scrapy \
-		js2xml \
-		celery \
-		requests_oauthlib \
-		twython \
-		nltk \
-	  \
-		msgpack \
-		git+https://github.com/pydata/pandas-datareader.git \
-		ggplot \
+        mrjob \
+        shapely \
+        selenium \
+        termcolor \
+        scrapy \
+        js2xml \
+        celery \
+        requests_oauthlib \
+        twython \
+        nltk \
       \
-		tensorflow \
+        msgpack \
+        git+https://github.com/pydata/pandas-datareader.git \
+        ggplot plotly \
+      \
+        tensorflow \
   \
-	&& mkdir $NOTEBOOKS_PATH \
+    && mkdir $NOTEBOOKS_PATH \
   \
   # R packages
     && conda install \
@@ -67,7 +67,7 @@ RUN \
     && julia -e 'Pkg.add("IJulia")' \
   \
   # Java
-	&& JAVA_VERSION_MAJOR=8 && \
+    && JAVA_VERSION_MAJOR=8 && \
     JAVA_VERSION_MINOR=191 && \
     JAVA_VERSION_BUILD=12 && \
     JAVA_PACKAGE=jdk && \
@@ -109,8 +109,8 @@ RUN \
            /tmp/* /var/cache/apt/* \
   \
   # Spark
-	&& SPARK_VERSION=2.3.2 \
-	&& curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
+    && SPARK_VERSION=2.3.2 \
+    && curl http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz | tar -xzf - -C /usr/local/ \
     && ln -s /usr/local/spark-${SPARK_VERSION}-bin-hadoop2.7/ /opt/spark \
   \
   # jdbc
@@ -129,9 +129,9 @@ ENV SPARK_HOME=/opt/spark \
     PYSPARK_PYTHON=python3 \
     PYSPARK_DRIVER_PYTHON=ipython \
     PYSPARK_DRIVER_PYTHON_OPTS="notebook --allow-root --ip='*' \
-										 --no-browser \
-										 --notebook-dir=$NOTEBOOKS_PATH \
-										 --NotebookApp.token=''"
+                                    --no-browser \
+                                    --notebook-dir=$NOTEBOOKS_PATH \
+                                    --NotebookApp.token=''"
 
 ENV PATH=${PATH}:${SPARK_HOME}/bin:${SPARK_HOME}/sbin 
  
